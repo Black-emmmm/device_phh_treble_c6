@@ -1,0 +1,10 @@
+cc_library_shared {
+    name: "lights_ud710_linear",
+    srcs: ["lights_ud710_linear.c"],
+    header_libs: ["libhardware_headers"],
+    stl: "none",
+    cflags: [
+        "-Wall",
+        "-Wno-unused-parameter",
+    ],
+}

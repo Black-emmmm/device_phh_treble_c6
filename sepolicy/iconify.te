@@ -1,0 +1,26 @@
+#
+# CB-C6: Iconify（com.drdisagree.iconify.foss）作为系统应用预装后的执行权限
+#
+# 背景：
+#   Iconify 编译 RRO overlay 需要现场调用 aapt / aapt2 / zipalign。它把这几个工具
+#   以 lib*.so 的名字打包进 APK 的 lib/<abi>/（实质是 aarch64 可执行文件），
+#   运行时 BinaryInstaller.symLinkBinaries() 做的是：
+#       ln -sf <nativeLibraryDir>/libaapt.so   <dataDir>/bin/aapt
+#       ln -sf <nativeLibraryDir>/libaapt2.so  <dataDir>/bin/aapt2
+#       ln -sf <nativeLibraryDir>/libzipalign.so <dataDir>/bin/zipalign
+#   然后 execve 这些 symlink。
+#
+#   普通用户安装时 nativeLibraryDir 在 /data/app/.../lib（apk_data_file），
+#   系统应用预装后则固定为 /system/app/Iconify/lib/<abi>，文件默认是 system_file，
+#   任何应用域都没有 execute 权限 —— 表现为：
+#       /system/bin/sh: <stdin>[N]: .../bin/aapt: can't execute: Permission denied
+#
+# 处理：
+#   单列一个可执行类型（结构同 toolbox_exec：exec_type + system_file_type），
+#   在 device/phh/treble/sepolicy/file_contexts 里给三个工具打标，
+#   再放开应用自身域与 shell 域的 execute 权限（root 未授予时 libsu 会退回非 root）。
+#
+type iconify_exec, system_file_type, exec_type, file_type;
+
+allow untrusted_app iconify_exec:file { execute execute_no_trans open read getattr map };
+allow shell iconify_exec:file { execute execute_no_trans open read getattr map };

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CB-C6-STU has no IMS / VoLTE capability: no modem at all. -->
+<permissions>
+</permissions>

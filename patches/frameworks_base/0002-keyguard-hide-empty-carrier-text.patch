@@ -1,0 +1,29 @@
+diff --git a/frameworks/base/packages/SystemUI/src/com/android/keyguard/CarrierTextController.java b/frameworks/base/packages/SystemUI/src/com/android/keyguard/CarrierTextController.java
+--- a/frameworks/base/packages/SystemUI/src/com/android/keyguard/CarrierTextController.java
++++ b/frameworks/base/packages/SystemUI/src/com/android/keyguard/CarrierTextController.java
+@@ -16,6 +16,8 @@
+ 
+ package com.android.keyguard;
+ 
++import android.view.View;
++
+ import com.android.systemui.util.ViewController;
+ 
+ import javax.inject.Inject;
+@@ -30,7 +32,15 @@
+             new CarrierTextManager.CarrierTextCallback() {
+                 @Override
+                 public void updateCarrierInfo(CarrierTextManager.CarrierTextCallbackInfo info) {
+-                    mView.setText(info.carrierText);
++                    // CB-C6: 本机没有 modem/SIM，运营商文字恒为「没有服务」，锁屏左上角
++                    // 一直挂着一行灰字，纯噪音。只在文案是「无服务」默认值（或为空）时隐藏，
++                    // 插卡设备照常显示运营商名，不影响任何功能。
++                    final String text = info.carrierText == null ? "" : info.carrierText.toString();
++                    final String noService = mView.getContext().getString(
++                            com.android.internal.R.string.lockscreen_carrier_default);
++                    mView.setText(text);
++                    mView.setVisibility((text.trim().isEmpty() || text.contains(noService))
++                            ? View.GONE : View.VISIBLE);
+                 }
+ 
+                 @Override

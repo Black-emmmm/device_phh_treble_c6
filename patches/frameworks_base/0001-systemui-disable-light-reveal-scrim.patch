@@ -1,0 +1,27 @@
+diff --git a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/LightRevealScrim.kt b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/LightRevealScrim.kt
+--- a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/LightRevealScrim.kt
++++ b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/LightRevealScrim.kt
+@@ -257,15 +257,19 @@
+      */
+     var revealAmount: Float = 1f
+         set(value) {
+-            if (field != value) {
+-                field = value
++            // CB-C6 (GSI)：禁用 LightReveal 白色转场蒙板。
++            // 锁屏/唤醒/解锁/应用遮挡钥匙 Guard 时该 scrim 会先以近全白覆盖屏幕再「揭开」，
++            // 在本机上表现为一帧「白雾蒙板」闪烁（每次转场、每次按键截图都会抓到）。
++            // 这里恒保持 1f（全透明，即稳定态），scrim 永不参与合成。
++            if (field != 1f) {
++                field = 1f
+ 
+-                revealEffect.setRevealAmountOnScrim(value, this)
++                revealEffect.setRevealAmountOnScrim(1f, this)
+                 updateScrimOpaque()
+                 Trace.traceCounter(
+                     Trace.TRACE_TAG_APP,
+                     "light_reveal_amount",
+-                    (field * 100).toInt()
++                    100
+                 )
+                 invalidate()
+             }

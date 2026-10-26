@@ -1,0 +1,6 @@
+service sudaemon /system/bin/phh-su --daemon
+    class main
+    user root
+    group root system
+    socket su stream 666
+    seclabel u:r:phhsu_daemon:s0

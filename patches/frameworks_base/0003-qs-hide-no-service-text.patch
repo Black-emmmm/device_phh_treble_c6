@@ -1,0 +1,26 @@
+diff --git a/frameworks/base/packages/SystemUI/src/com/android/systemui/qs/carrier/QSCarrierGroupController.java b/frameworks/base/packages/SystemUI/src/com/android/systemui/qs/carrier/QSCarrierGroupController.java
+--- a/frameworks/base/packages/SystemUI/src/com/android/systemui/qs/carrier/QSCarrierGroupController.java
++++ b/frameworks/base/packages/SystemUI/src/com/android/systemui/qs/carrier/QSCarrierGroupController.java
+@@ -28,7 +28,6 @@
+ import android.os.Message;
+ import android.provider.Settings;
+ import android.telephony.SubscriptionManager;
+-import android.text.TextUtils;
+ import android.util.Log;
+ import android.view.View;
+ import android.widget.TextView;
+@@ -423,10 +422,10 @@
+                 mCarrierGroups[i].setCarrierText("");
+                 mCarrierGroups[i].setVisibility(View.GONE);
+             }
+-            mNoSimTextView.setText(info.carrierText);
+-            if (!TextUtils.isEmpty(info.carrierText)) {
+-                mNoSimTextView.setVisibility(View.VISIBLE);
+-            }
++            // CB-C6 (GSI, 无 SIM 卡槽)：本机无 modem，info.carrierText 恒为「没有服务」，
++            // 显示在快捷设置头部纯属噪音，直接永久隐藏。
++            mNoSimTextView.setText("");
++            mNoSimTextView.setVisibility(View.GONE);
+         }
+         handleUpdateState(); // handleUpdateCarrierInfo is always called from main thread.
+     }

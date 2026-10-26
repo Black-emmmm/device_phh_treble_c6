@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<displayConfiguration>
+    <screenBrightnessRampFastDecrease>1000</screenBrightnessRampFastDecrease>
+    <screenBrightnessRampFastIncrease>1000</screenBrightnessRampFastIncrease>
+    <screenBrightnessRampSlowDecrease>1000</screenBrightnessRampSlowDecrease>
+    <screenBrightnessRampSlowIncrease>1000</screenBrightnessRampSlowIncrease>
+</displayConfiguration>

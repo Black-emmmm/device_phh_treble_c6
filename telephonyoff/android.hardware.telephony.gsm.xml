@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CB-C6-STU is a Wi-Fi-only tablet: no SIM slot, no modem.
+     Telephony hardware features are removed on purpose so that
+     TelephonyManager / TelephonyRegistry do not try to bring up a radio.
+     android.software.telecom is kept so VoIP calling still works. -->
+<permissions>
+    <feature name="android.software.telecom" />
+</permissions>
