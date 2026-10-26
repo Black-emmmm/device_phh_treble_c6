@@ -1,5 +1,5 @@
 # 补丁脚本的备份目录
-patches/backup-*/
+c6-patches/backup-*/
 # 第三方 APK 与二进制（不随仓库分发）
 vendor/c6prebuilts/*/*.apk
 vendor/c6prebuilts/Iconify/lib/

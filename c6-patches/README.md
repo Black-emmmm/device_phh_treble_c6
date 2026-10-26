@@ -7,16 +7,16 @@
 
 ```bash
 # 推荐：完整文件覆盖（最稳，不受上游版本影响）
-bash patches/apply.sh /path/to/aosp
+bash c6-patches/apply.sh /path/to/aosp
 
 # 只检查差异，不改任何东西
-bash patches/apply.sh /path/to/aosp --check
+bash c6-patches/apply.sh /path/to/aosp --check
 
 # 用 diff 打补丁（只有 SystemUI 三处有标准 patch）
-bash patches/apply.sh /path/to/aosp --patch
+bash c6-patches/apply.sh /path/to/aosp --patch
 ```
 
-覆盖前会把原文件备份到 `patches/backup-<时间戳>/`。**改完必须重编**，只替换源码文件不重编
+覆盖前会把原文件备份到 `c6-patches/backup-<时间戳>/`。**改完必须重编**，只替换源码文件不重编
 （或用旧 odex）不会生效。
 
 ---

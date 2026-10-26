@@ -65,13 +65,13 @@ iFLYTEK **CB-C6-STU**（`ud710_2h10`，Unisoc UD710）的 Android 13 GSI 设备�
 
 设备树之外还有 11 个文件的修改（SystemUI 白雾蒙板、锁屏「没有服务」、设置安全页转圈、
 面具本地安装闪退等）。它们改的是 frameworks/base、Settings、MediaProvider，
-放在 [`patches/`](patches/) 里，含标准 diff、完整文件和一键脚本：
+放在 [`c6-patches/`](c6-patches/) 里，含标准 diff、完整文件和一键脚本：
 
 ```bash
-bash patches/apply.sh /path/to/aosp
+bash c6-patches/apply.sh /path/to/aosp
 ```
 
-详见 [patches/README.md](patches/README.md)。
+详见 [c6-patches/README.md](c6-patches/README.md)。
 
 ---
 
@@ -84,9 +84,9 @@ repo sync -j8
 git clone https://github.com/Black-emmmm/device_phh_treble_c6 -b 13.0 device/phh/treble
 
 # 2. 打系统层补丁
-bash device/phh/treble/patches/apply.sh .
+bash device/phh/treble/c6-patches/apply.sh .
 
-# 3. 放入第三方 APK 与 Iconify 的 4 个 arm64 库（见 patches/README.md）
+# 3. 放入第三方 APK 与 Iconify 的 4 个 arm64 库（见 c6-patches/README.md）
 
 # 4. 编译
 source build/envsetup.sh

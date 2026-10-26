@@ -3,9 +3,9 @@
 # CB-C6-STU 系统层补丁应用脚本
 #
 # 用法：
-#   bash patches/apply.sh /path/to/aosp          # 用完整文件覆盖（推荐，最稳）
-#   bash patches/apply.sh /path/to/aosp --patch  # 用 diff 打补丁（仅 SystemUI 三处）
-#   bash patches/apply.sh /path/to/aosp --check  # 只检查不修改
+#   bash c6-patches/apply.sh /path/to/aosp          # 用完整文件覆盖（推荐，最稳）
+#   bash c6-patches/apply.sh /path/to/aosp --patch  # 用 diff 打补丁（仅 SystemUI 三处）
+#   bash c6-patches/apply.sh /path/to/aosp --check  # 只检查不修改
 #
 # 说明：这些修复不在设备树里，它们改的是 frameworks/base、Settings、MediaProvider
 #       的源码。设备树只提供产品配置，所以必须单独打这批补丁才能得到同样的系统。
@@ -16,7 +16,7 @@ TREE="${1:-}"
 MODE="${2:-copy}"
 
 if [ -z "$TREE" ] || [ ! -d "$TREE" ]; then
-    echo "用法: bash patches/apply.sh /path/to/aosp [--patch|--check]"
+    echo "用法: bash c6-patches/apply.sh /path/to/aosp [--patch|--check]"
     exit 1
 fi
 
